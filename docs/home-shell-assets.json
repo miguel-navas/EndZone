@@ -1,0 +1,22 @@
+[
+  {
+    "Path": "frontend/public/assets/imagem1.png",
+    "Hash": "AA95F6CE09BC0E0D81E38367A61E1100FFACF108B730300F3493BD64F793D039"
+  },
+  {
+    "Path": "frontend/public/assets/imagem2.jpg",
+    "Hash": "9D8E49288D991C6A7981B8303CDCF1DAD859B475042CC4BCCA7583886269C09C"
+  },
+  {
+    "Path": "frontend/public/assets/branding/endzone-brand-concept-01.png",
+    "Hash": "786D3353DC9C404071A21B63A9182C1C4B7EF164C885C8A32131D80205E61825"
+  },
+  {
+    "Path": "frontend/public/assets/branding/endzone-brand-concept-02.png",
+    "Hash": "B54E6D07D3391DF79EA0C751671C6B166C3FEC0005CDC38FE5B17425C1E6E89B"
+  },
+  {
+    "Path": "frontend/public/assets/images/endzone-home-hero.png",
+    "Hash": "52BDE486D30D347C8D37EA7042EF3B60D72D21BC468C787AD9A6AE9762613322"
+  }
+]
