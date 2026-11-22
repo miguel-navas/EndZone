@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { House, CalendarDays, Trophy, ChartColumn, Users, UserRound, ChartNoAxesCombined, Newspaper, GitMerge, Medal, BookOpen, Menu, X, type LucideIcon } from 'lucide-react';
+import { House, CalendarDays, Trophy, ChartColumn, Users, UserRound, ChartNoAxesCombined, Newspaper, GitMerge, Medal, BookOpen, Menu, X, ChevronRight, Clock3, Radio, Shield, Info, type LucideIcon } from 'lucide-react';
 
 type NavigationItem = { label: string; icon: LucideIcon; href: string };
 const navigation: NavigationItem[] = [
@@ -9,10 +9,10 @@ const navigation: NavigationItem[] = [
   { label: 'Classificação', icon: ChartColumn, href: '#classificacao' },
   { label: 'Equipes', icon: Users, href: '#equipes' },
   { label: 'Jogadores', icon: UserRound, href: '#equipes' },
-  { label: 'Estatísticas', icon: ChartNoAxesCombined, href: '#classificacao' },
+  { label: 'Estatísticas', icon: ChartNoAxesCombined, href: '#lideres' },
   { label: 'Notícias', icon: Newspaper, href: '#noticias' },
-  { label: 'NFL Playoffs', icon: GitMerge, href: '#jogos' },
-  { label: 'Super Bowl', icon: Medal, href: '#jogos' },
+  { label: 'NFL Playoffs', icon: GitMerge, href: '#eventos' },
+  { label: 'Super Bowl', icon: Medal, href: '#eventos' },
   { label: 'História e Regras', icon: BookOpen, href: '#noticias' }
 ];
 
@@ -26,11 +26,25 @@ function Sidebar({ compact, mobileOpen, onNavigate }: { compact: boolean; mobile
   </aside>;
 }
 
-function Section({ id, title, children }: { id: string; title: string; children: React.ReactNode }) {
-  return <section className="section" id={id}><h2>{title}</h2><div className="cards">{children}</div></section>;
+function SectionHeading({ title, eyebrow, icon: Icon }: { title: string; eyebrow?: string; icon: LucideIcon }) {
+  return <div className="section-heading"><div><span className="eyebrow">{eyebrow}</span><h2><Icon size={22} aria-hidden="true" />{title}</h2></div><span className="section-status">Em preparação</span></div>;
 }
-function Card({ eyebrow, title, children }: { eyebrow: string; title: string; children: React.ReactNode }) {
-  return <article className="card"><span className="eyebrow">{eyebrow}</span><h3>{title}</h3><p>{children}</p></article>;
+
+function EmptyPanel({ icon: Icon, title, description }: { icon: LucideIcon; title: string; description: string }) {
+  return <div className="empty-panel" role="status"><Icon size={28} aria-hidden="true" /><h3>{title}</h3><p>{description}</p></div>;
+}
+
+function StandingsPanel() {
+  const [conference, setConference] = useState<'AFC' | 'NFC'>('AFC');
+  return <section id="classificacao" className="dashboard-panel standings-panel" aria-label="Classificação">
+    <SectionHeading title="Classificação" eyebrow="TEMPORADA NFL" icon={ChartColumn} />
+    <div className="conference-tabs" role="group" aria-label="Conferência">
+      {(['AFC', 'NFC'] as const).map(item => <button key={item} type="button" aria-pressed={conference === item} className={conference === item ? 'selected' : ''} onClick={() => setConference(item)}>{item}</button>)}
+    </div>
+    <div className="standings-table"><div className="standings-columns"><span>DIVISÃO / EQUIPE</span><span>V</span><span>D</span></div>
+      <EmptyPanel icon={Shield} title={conference + ' — dados pendentes'} description="As posições e campanhas serão exibidas após a integração com uma fonte verificada." />
+    </div>
+  </section>;
 }
 
 export function App() {
@@ -55,24 +69,22 @@ export function App() {
     {mobileOpen && <button className="overlay" aria-label="Fechar menu" onClick={() => setMobileOpen(false)} />}
     <Sidebar compact={compact} mobileOpen={mobileOpen} onNavigate={() => setMobileOpen(false)} />
     <main id="conteudo" className="main">
-      <section className="hero" id="inicio"><div className="hero-content"><span className="eyebrow">NFL 2026</span><h1>A emoção começa em cada jogada.</h1><p>Jogos, equipes, classificação e notícias do futebol americano em um só lugar.</p><a className="primary-action" href="#jogos">Explorar jogos</a></div></section>
-      <Section id="jogos" title="Jogos da semana">
-        <Card eyebrow="CALENDÁRIO" title="Próximos confrontos">Aguardando integração com a API de jogos da NFL.</Card>
-        <Card eyebrow="RESULTADOS" title="Últimas partidas">Resultados serão apresentados a partir de uma fonte verificada.</Card>
-        <Card eyebrow="AO VIVO" title="Acompanhe a rodada">A cobertura ao vivo dependerá do provedor escolhido.</Card>
-      </Section>
-      <Section id="classificacao" title="Classificação">
-        <Card eyebrow="AFC" title="Conferência Americana">Divisões, campanhas e posições serão carregadas da API.</Card>
-        <Card eyebrow="NFC" title="Conferência Nacional">Classificação oficial sem placares simulados.</Card>
-      </Section>
-      <Section id="noticias" title="Notícias">
-        <Card eyebrow="EDITORIAL" title="Notícias em preparação">Conteúdo com fonte e data de publicação identificadas.</Card>
-        <Card eyebrow="ANÁLISES" title="Destaques da temporada">Espaço reservado para cobertura editorial.</Card>
-      </Section>
-      <Section id="equipes" title="Equipes da NFL">
-        <Card eyebrow="32 FRANQUIAS" title="Explore as equipes">Escudos, uniformes, elencos e estatísticas em futuras integrações.</Card>
-      </Section>
-      <p className="disclaimer">Protótipo visual. Dados esportivos em tempo real ainda não integrados.</p>
+      <div className="dashboard-topline"><span><Radio size={15} aria-hidden="true" /> CENTRAL END ZONE</span><span>Conteúdo em desenvolvimento</span></div>
+      <div className="dashboard-intro"><div><span className="eyebrow">FUTEBOL AMERICANO • BRASIL</span><h1>Viva cada <em>jogada.</em></h1><p>Seu ponto de encontro com o universo da NFL.</p></div><span className="season-label">TEMPORADA 2026</span></div>
+      <div className="dashboard-lead">
+        <section className="hero" id="inicio" aria-label="Destaque EndZone"><div className="hero-content"><span className="hero-kicker">A EXPERIÊNCIA END ZONE</span><h2>O jogo vai<br/><strong>além do campo.</strong></h2><p>Jogos, equipes, classificação, notícias e estatísticas em um só lugar.</p><a className="primary-action" href="#jogos">Explorar jogos <ChevronRight size={18} aria-hidden="true" /></a></div><div className="hero-field" aria-hidden="true"><span>END</span><span>ZONE</span></div><div className="hero-caption">A PAIXÃO PELO FUTEBOL AMERICANO</div></section>
+        <StandingsPanel />
+      </div>
+      <section className="dashboard-section" id="jogos"><SectionHeading title="Jogos da semana" eyebrow="CALENDÁRIO E RESULTADOS" icon={CalendarDays} />
+        <div className="game-grid">{['Próximos jogos', 'Resultados', 'Ao vivo'].map((title, i) => <article className="game-card" key={title}><div className="game-card-top"><span>{['AGENDA', 'PLACARES', 'COBERTURA'][i]}</span>{i === 2 ? <Radio size={17} /> : <Clock3 size={17} />}</div><div className="game-matchup"><div className="team-placeholder">—</div><span>VS</span><div className="team-placeholder">—</div></div><h3>{title}</h3><p>{['Aguardando calendário de partidas verificado.', 'Aguardando resultados da fonte oficial.', 'Disponível após integração de dados ao vivo.'][i]}</p></article>)}</div>
+      </section>
+      <div className="dashboard-secondary">
+        <section className="dashboard-panel" id="eventos"><SectionHeading title="Próximos eventos" eyebrow="FIQUE POR DENTRO" icon={Trophy} /><EmptyPanel icon={CalendarDays} title="Agenda em preparação" description="Datas dos playoffs, Super Bowl e eventos serão confirmadas antes da publicação." /></section>
+        <section className="dashboard-panel" id="lideres"><SectionHeading title="Líderes da temporada" eyebrow="ESTATÍSTICAS" icon={ChartNoAxesCombined} /><EmptyPanel icon={ChartColumn} title="Rankings em preparação" description="Líderes por jardas, touchdowns e outras métricas, com fonte e período identificados." /></section>
+      </div>
+      <section className="dashboard-section" id="noticias"><SectionHeading title="Últimas notícias" eyebrow="EDITORIAL END ZONE" icon={Newspaper} /><div className="news-grid">{['Destaques da NFL', 'Análises e bastidores', 'História e regras'].map((title, i) => <article className="news-card" key={title}><div className={'news-visual news-visual-' + i}><Newspaper size={32} aria-hidden="true" /></div><div className="news-body"><span className="eyebrow">CONTEÚDO EM PREPARAÇÃO</span><h3>{title}</h3><p>Publicações com fonte, autoria e data verificadas.</p></div></article>)}</div></section>
+      <section className="dashboard-section" id="equipes"><SectionHeading title="Equipes da NFL" eyebrow="CONHEÇA AS FRANQUIAS" icon={Users} /><div className="teams-placeholder"><Shield size={32} aria-hidden="true" /><div><h3>32 franquias. Uma paixão.</h3><p>Em breve: equipes, conferências, divisões, elencos e estatísticas.</p></div></div></section>
+      <p className="disclaimer"><Info size={15} aria-hidden="true" /> Protótipo visual. Dados esportivos e imagens finais ainda não integrados. Nenhum placar ou ranking exibido é simulado como real.</p>
     </main>
   </div>;
 }
