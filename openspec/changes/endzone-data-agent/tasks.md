@@ -1,9 +1,16 @@
 # Tasks
 - [x] Scaffold .NET 10 worker and provider configuration
-- [x] Implement snapshot ingestion, validation and durable checkpoints
+- [x] Implement provisional PostgreSQL snapshot ingestion, validation and checkpoints (code only; tests pending)
 - [x] Define AI agent contracts and review boundary
-- [ ] Verify source URLs and licensing
-- [ ] Build and run integration tests against PostgreSQL
-- [ ] Normalize teams, seasons, games and players
-- [ ] Implement AI provider and administrative review workflow
+- [ ] Verify source URLs, coverage and licensing
+- [ ] Build and test existing worker
+- [ ] Implement canonical schema and external ID resolution
+- [ ] Implement object storage adapter, manifests and safe snapshot migration
+- [ ] Implement historical partitions and incremental cursors
+- [ ] Implement leases, retries, quarantine and correction audit
+- [ ] Implement transactional outbox and analytics consumers
+- [ ] Implement raw archive retention and restore tests
+- [ ] Implement MongoDB document repository and review workflow
+- [ ] Implement AI provider and evidence-backed proposals
 - [ ] Integrate API/BFF and deploy scheduler
+- [ ] Benchmark storage and performance; validate OpenSpec and acceptance tests
