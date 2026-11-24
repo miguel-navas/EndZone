@@ -1,0 +1,2 @@
+# Design
+Worker uses HttpClient, CSV parsing, SHA-256 snapshots, PostgreSQL transactions and advisory locks. Historical and incremental imports share idempotent snapshot storage. Raw snapshots are staging, not published domain data. Source URLs are configured by operators. Validate source licensing before production. AI agents return evidence-backed proposals only; no autonomous publication. Future API/BFF reads normalized approved records.
