@@ -14,3 +14,5 @@
 - [ ] Implement AI provider and evidence-backed proposals
 - [ ] Integrate API/BFF and deploy scheduler
 - [ ] Benchmark storage and performance; validate OpenSpec and acceptance tests
+- [ ] Implement benchmark sufficient aggregates and invalidation on membership/title corrections (FR-016–020)
+- [ ] Test weighted and equal-franchise benchmarks, missing metrics and historical cohorts
