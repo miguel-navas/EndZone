@@ -1,6 +1,6 @@
 # EndZone — Product Brief, PRD e base SDD
 
-**Versão:** 0.2 · **Data:** 2026-11-24 · **Estado:** requisitos atualizados
+**Versão:** 0.3 · **Data:** 2026-11-24 · **Estado:** requisitos atualizados
 
 ## Product Brief (BMAD)
 **Visão:** Portal brasileiro de futebol americano com foco inicial na NFL, reunindo jogos, resultados, estatísticas, notícias e conteúdo de equipes e jogadores em uma experiência própria.
@@ -107,3 +107,11 @@ EndZone/
 - Definição de login, notificações, monetização e CMS (não aprovados no MVP).
 
 **Nota:** este documento é uma base de especificação, não indica software já implementado.
+
+## EndZone Analytics — ampliação aprovada (2026-11-24)
+- FR-016: Team vs League: comparar uma franquia com as demais franquias elegíveis da liga no período.
+- FR-017: Team vs Conference, Division, Champions e History: referências por conferência/divisão histórica, campeões do Super Bowl das temporadas selecionadas e períodos distintos da própria franquia.
+- FR-018: Rankings, recordes, evolução temporal e tendências descritivas com cobertura explícita.
+- FR-019: Benchmark padrão ponderado por jogos observados; alternativa com peso igual por franquia. Excluir a franquia selecionada da referência contemporânea; History usa período de referência explícito. Exibir denominadores, método, diferença absoluta e percentual quando referência não zero. Empates valem meia vitória no percentual. Ausência não equivale a zero.
+- FR-020: Interface EndZone Analytics com modos Head to Head, Team vs Team e Benchmarking; futuras comparações de jogadores ficam fora desta entrega.
+Critérios: respeitar filiação histórica por temporada, não usar totais brutos como médias, indicar cobertura parcial, não misturar fases ou duplicar Super Bowl, testar pesos e ausência de pares. Ver OpenSpec endzone-benchmarking.
