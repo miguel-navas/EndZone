@@ -1,6 +1,6 @@
 # EndZone — Product Brief, PRD e base SDD
 
-**Versão:** 0.1 · **Data:** 2026-11-15 · **Estado:** planejamento inicial
+**Versão:** 0.2 · **Data:** 2026-11-24 · **Estado:** requisitos atualizados
 
 ## Product Brief (BMAD)
 **Visão:** Portal brasileiro de futebol americano com foco inicial na NFL, reunindo jogos, resultados, estatísticas, notícias e conteúdo de equipes e jogadores em uma experiência própria.
@@ -9,7 +9,7 @@
 
 **Público:** torcedores brasileiros, iniciantes e experientes.
 
-**Diferencial:** homepage cinematográfica, navegação clara, identidade esportiva própria.
+**Diferencial:** homepage cinematográfica, navegação clara, identidade esportiva própria e comparação estatística histórica entre franquias.
 
 ## PRD — Requisitos funcionais
 - FR-001: Home com hero, jogos, notícias e destaques.
@@ -21,6 +21,23 @@
 - FR-007: Playoffs e chaveamento quando aplicável.
 - FR-008: Notícias, história e regras do futebol americano.
 - FR-009: Menu lateral retrátil: ícone + texto expandido; ícone recolhido.
+
+- FR-010: Comparador Head to Head entre duas franquias distintas, com filtros por temporada, intervalo e fase (regular, playoffs, Super Bowl); pré-temporada excluída por padrão.
+- FR-011: Exibir confrontos concluídos, vitórias, derrotas, empates, pontos marcados e sofridos, médias, maior pontuação, sequências e histórico cronológico.
+- FR-012: Comparar desempenho geral das equipes independentemente de confrontos diretos; abas Visão geral, Ataque, Defesa, Histórico, Temporadas e Conquistas.
+- FR-013: Exibir touchdowns, jardas, turnovers, sacks, interceptações e títulos conforme cobertura da fonte, sem converter ausência em zero.
+- FR-014: Coletar histórico e atualizações incrementais, validar, deduplicar e consolidar estatísticas com rastreabilidade.
+- FR-015: Identidade estável de franquia através de mudanças de nome e cidade; preservar identidade da equipe na época da partida.
+
+### Critérios de aceite — comparação
+- Inverter A/B inverte as métricas correspondentes sem alterar o total de jogos.
+- Somar vitórias A, vitórias B e empates reproduz o total de confrontos concluídos.
+- Pontos e médias são calculados sobre os jogos elegíveis; média indisponível quando não há jogos.
+- Super Bowl é subconjunto dos playoffs, nunca contado duas vezes.
+- Filtros respeitam temporada NFL, não apenas ano civil; partidas canceladas ou futuras não entram nos totais.
+- Exibir cobertura temporal, fonte, última atualização e estados vazio, parcial, erro e carregamento.
+- Testar correções de placar, franquias renomeadas, duplicidades, empates e intervalos sem jogos.
+- Não publicar números inventados; estatísticas detalhadas dependem de cobertura comprovada.
 
 ## Requisitos não funcionais
 - Interface responsiva, acessível por teclado, com contraste e foco visível.
@@ -40,7 +57,9 @@
 - **Frontend:** React + TypeScript.
 - **Backend:** .NET 10, Clean Architecture, DDD aplicado com pragmatismo.
 - **Experiência:** BFF para agregação de dados e contratos adequados ao frontend.
-- **Banco:** PostgreSQL; uso inicial de Supabase a confirmar.
+- **Persistência:** PostgreSQL para fatos relacionais e estatísticos de todas as temporadas; Supabase como opção inicial, capacidade e conta a confirmar. MongoDB para documentos narrativos; armazenamento de objetos Cloudflare R2 para arquivos brutos. Ver [ADR-001](decisions/ADR-001-data-persistence.md).
+- **Analytics:** SQL/C# determinísticos, índices e views materializadas quando justificados por medição; atualização após ingestão validada. IA apenas interpreta resultados com evidência.
+- **Agentes:** coleta histórica/incremental, qualidade, agregação estatística, comparações, recordes e arquivamento de arquivos brutos.
 - **Integrações:** adaptadores para provedores de dados da NFL; validar licenças, custos e cobertura antes de produção.
 - **Infra:** deploy e hospedagem ainda a decidir.
 
@@ -71,6 +90,7 @@ EndZone/
 - `home-shell`: estrutura de página, menu lateral e hero.
 - `nfl-scoreboard`: jogos e placares.
 - `teams-standings`: equipes e classificações.
+- `head-to-head-analytics`: comparador histórico e geral, a especificar antes da implementação.
 
 ### Critérios de aceite iniciais — home-shell
 - Sidebar alterna estados expandido/recolhido sem perder navegação.
@@ -81,7 +101,8 @@ EndZone/
 ## Pendências explícitas
 - Escolha e licenciamento de provedor de dados esportivos.
 - Confirmação do registro de domínio.
-- Estratégia de hospedagem e banco inicial.
+- Estratégia de hospedagem, capacidade dos planos gratuitos e credenciais dos serviços; validar cobertura e custo de armazenamento.
+- Definir metas mensuráveis de desempenho após benchmark com dados representativos.
 - Arquivos finais de logo e banner para versionamento.
 - Definição de login, notificações, monetização e CMS (não aprovados no MVP).
 
