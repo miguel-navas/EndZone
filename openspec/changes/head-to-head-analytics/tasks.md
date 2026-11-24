@@ -1,0 +1,11 @@
+# Tasks
+- [ ] Validate OpenSpec and review data model
+- [ ] Implement canonical franchise/game schema and fixtures
+- [ ] Implement indexed direct and overall SQL queries
+- [ ] Implement metric coverage and title queries
+- [ ] Implement API/BFF contracts, pagination and validation
+- [ ] Implement React comparison route and six tabs
+- [ ] Test swaps, ties, neutral games, missing metrics, relocation, corrections, Super Bowl and empty ranges
+- [ ] Benchmark and decide on projections/cache
+- [ ] Verify accessibility, responsive UI and source attribution
+- [ ] Obtain acceptance and document evidence
