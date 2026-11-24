@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { TeamsPage } from './TeamsPage';
 import { House, CalendarDays, Trophy, ChartColumn, Users, UserRound, ChartNoAxesCombined, Newspaper, GitMerge, Medal, BookOpen, Menu, X, ChevronRight, Clock3, Radio, Shield, Info, type LucideIcon } from 'lucide-react';
 
 type NavigationItem = { label: string; icon: LucideIcon; href: string };
@@ -83,7 +84,7 @@ export function App() {
         <section className="dashboard-panel" id="lideres"><SectionHeading title="Líderes da temporada" eyebrow="ESTATÍSTICAS" icon={ChartNoAxesCombined} /><EmptyPanel icon={ChartColumn} title="Rankings em preparação" description="Líderes por jardas, touchdowns e outras métricas, com fonte e período identificados." /></section>
       </div>
       <section className="dashboard-section" id="noticias"><SectionHeading title="Últimas notícias" eyebrow="EDITORIAL END ZONE" icon={Newspaper} /><div className="news-grid">{['Destaques da NFL', 'Análises e bastidores', 'História e regras'].map((title, i) => <article className="news-card" key={title}><div className={'news-visual news-visual-' + i}><Newspaper size={32} aria-hidden="true" /></div><div className="news-body"><span className="eyebrow">CONTEÚDO EM PREPARAÇÃO</span><h3>{title}</h3><p>Publicações com fonte, autoria e data verificadas.</p></div></article>)}</div></section>
-      <section className="dashboard-section" id="equipes"><SectionHeading title="Equipes da NFL" eyebrow="CONHEÇA AS FRANQUIAS" icon={Users} /><div className="teams-placeholder"><Shield size={32} aria-hidden="true" /><div><h3>32 franquias. Uma paixão.</h3><p>Em breve: equipes, conferências, divisões, elencos e estatísticas.</p></div></div></section>
+      <TeamsPage />
       <p className="disclaimer"><Info size={15} aria-hidden="true" /> Protótipo visual. Dados esportivos e imagens finais ainda não integrados. Nenhum placar ou ranking exibido é simulado como real.</p>
     </main>
   </div>;
